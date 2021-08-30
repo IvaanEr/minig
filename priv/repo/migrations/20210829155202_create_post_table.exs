@@ -7,6 +7,7 @@ defmodule Minig.Repo.Migrations.CreatePostTable do
       add :image, :binary, null: false
       add :image_type, :string, null: false
       add :likes, :integer, default: 0
+      add :customer_likes, {:array, :integer}, default: []
       add :customer_id, references(:customer), null: false
       timestamps()
     end
