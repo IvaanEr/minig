@@ -19,6 +19,7 @@ defmodule Minig.DataCase do
   using do
     quote do
       alias Minig.Repo
+      alias Minig.Support.Factory
 
       import Ecto
       import Ecto.Changeset
