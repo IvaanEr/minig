@@ -31,6 +31,7 @@ defmodule Minig.Post do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
+    |> foreign_key_constraint(:customer_id)
     |> validate_required(@required_fields)
     |> encode_image()
   end
