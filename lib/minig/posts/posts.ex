@@ -39,29 +39,21 @@ defmodule Minig.Posts do
 
   @doc """
   Get a list of Posts, from newest to oldest.
-  If the limit option is provided, the query will only fetch `limit` amount of Posts
   """
-  @spec get(Keyword.t()) :: list(Post.t())
-  def get(opts \\ []) do
-    limit = Keyword.get(opts, :limit, nil)
-
+  @spec get() :: list(Post.t())
+  def get() do
     Post
     |> order_by(desc: :inserted_at)
-    |> maybe_limit(limit)
     |> Repo.all()
   end
 
   @doc """
   Get a list of Posts from one Customer, from newest to oldest
-  If the limit option is provided, the query will only fetch `limit` amount of Posts
   """
-  @spec by_customer(binary(), Keyword.t()) :: list(Post.t())
-  def by_customer(customer_id, opts \\ []) do
-    limit = Keyword.get(opts, :limit, nil)
-
+  @spec by_customer(binary()) :: list(Post.t())
+  def by_customer(customer_id) do
     Post
     |> where([p], p.customer_id == ^customer_id)
-    |> maybe_limit(limit)
     |> Repo.all()
   end
 
@@ -84,7 +76,4 @@ defmodule Minig.Posts do
       |> Repo.update(returning: true)
     end
   end
-
-  defp maybe_limit(q, nil), do: q
-  defp maybe_limit(q, limit), do: q |> limit(^limit)
 end

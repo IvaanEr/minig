@@ -29,10 +29,12 @@ defmodule MinigWeb.PostController do
 
   def index(conn, _params) do
     conn = fetch_query_params(conn)
+    IO.inspect(conn.query_params)
     pagination = build_pagination(conn)
+    IO.inspect(pagination)
 
     page =
-      Posts.get(limit: pagination.page_size)
+      Posts.get()
       |> Scrivener.paginate(pagination)
 
     render(conn, "index.json", %{"page" => page})
@@ -59,7 +61,7 @@ defmodule MinigWeb.PostController do
 
     with customer_id <- String.to_integer(customer_id),
          true <- Customers.exists?(customer_id),
-         posts <- Posts.by_customer(customer_id, limit: pagination.page_size),
+         posts <- Posts.by_customer(customer_id),
          page <- Scrivener.paginate(posts, pagination) do
       render(conn, "index.json", %{"page" => page})
     else
@@ -71,13 +73,13 @@ defmodule MinigWeb.PostController do
     end
   end
 
-  defp build_pagination(%{"page_number" => page_number, "page_size" => page_size}),
-    do: %Scrivener.Config{
-      page_number: String.to_integer(page_number),
-      page_size: String.to_integer(page_size)
-    }
+  defp build_pagination(%{query_params: %{"page_number" => page_number, "page_size" => page_size}}),
+       do: %Scrivener.Config{
+         page_number: String.to_integer(page_number),
+         page_size: String.to_integer(page_size)
+       }
 
-  defp build_pagination(%{"page_number" => page_number}),
+  defp build_pagination(%{query_params: %{"page_number" => page_number}}),
     do: %Scrivener.Config{page_number: String.to_integer(page_number), page_size: 10}
 
   defp build_pagination(_conn), do: %Scrivener.Config{page_number: 1, page_size: 10}
