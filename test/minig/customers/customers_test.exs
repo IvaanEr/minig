@@ -1,5 +1,5 @@
 defmodule Minig.CustomersTest do
-  use Minig.DataCase
+  use Minig.DataCase, async: true
 
   alias Minig.Customers
 

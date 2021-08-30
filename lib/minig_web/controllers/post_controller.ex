@@ -14,9 +14,10 @@ defmodule MinigWeb.PostController do
     with customer_id <- String.to_integer(customer_id),
          true <- Customers.exists?(customer_id),
          {:ok, image_binary} <- File.read(image.path),
-         {:ok, _post} <- Posts.create(image_binary, image.content_type, description, customer_id) do
+         {:ok, post} <- Posts.create(image_binary, image.content_type, description, customer_id) do
       conn
-      |> send_resp(201, "Created")
+      |> put_status(201)
+      |> render("post.json", %{"post" => post})
     else
       false ->
         {:error, :not_found}

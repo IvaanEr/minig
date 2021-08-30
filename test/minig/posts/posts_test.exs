@@ -1,5 +1,5 @@
 defmodule Minig.PostsTest do
-  use Minig.DataCase
+  use Minig.DataCase, async: true
 
   alias Minig.Post
   alias Minig.Posts
@@ -42,7 +42,7 @@ defmodule Minig.PostsTest do
     test "get all posts with limit option" do
       %{id: id1} = Factory.insert(:post)
       %{id: id2} = Factory.insert(:post)
-      %{id: id3} = Factory.insert(:post)
+      Factory.insert(:post)
 
       assert [%Post{id: ^id1}, %Post{id: ^id2}] = Posts.get(limit: 2)
     end
@@ -52,7 +52,7 @@ defmodule Minig.PostsTest do
     test "get all posts from specific customer" do
       %{id: customer_id} = customer = Factory.insert(:customer)
       %{id: id} = Factory.insert(:post, customer: customer)
-      %{id: id2} = Factory.insert(:post)
+      Factory.insert(:post)
 
       assert [%Post{id: ^id}] = Posts.by_customer(customer_id)
     end

@@ -25,6 +25,7 @@ defmodule MinigWeb.ConnCase do
       import MinigWeb.ConnCase
 
       alias MinigWeb.Router.Helpers, as: Routes
+      alias Minig.Support.Factory
 
       # The default endpoint for testing
       @endpoint MinigWeb.Endpoint
