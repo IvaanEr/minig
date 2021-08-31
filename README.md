@@ -19,8 +19,10 @@ The application consists of a feature limited "Instagram" clone, with the follow
   * Create and migrate your database with `mix ecto.setup`
   * Start Phoenix endpoint at [localhost:4000](localhost:4000) with `mix phx.server`
 
-#### Use docker-compose
-  TODO
+#### docker-compose
+  Or use docker-compose and saved a lot of work :gem:
+
+  `docker-compose up -d --build`
 
 #### Database schema
 ![](utils/database_schema.svg)

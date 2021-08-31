@@ -2,11 +2,11 @@ use Mix.Config
 
 # Configure your database
 config :minig, Minig.Repo,
-  username: "minigadmin",
-  password: "minigadmin",
-  database: "minig_dev",
-  hostname: "localhost",
-  port: "5431",
+  username: System.get_env("PGUSER", "minigadmin"),
+  password: System.get_env("PGPASSWORD", "minigadmin"),
+  database: System.get_env("PGDATABASE", "minig_dev"),
+  hostname: System.get_env("PGHOST", "localhost"),
+  port: System.get_env("PGPORT", "5431"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
