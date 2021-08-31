@@ -38,14 +38,6 @@ defmodule Minig.PostsTest do
 
       assert [%Post{id: ^id1}, %Post{id: ^id2}, %Post{id: ^id3}] = Posts.get()
     end
-
-    test "get all posts with limit option" do
-      %{id: id1} = Factory.insert(:post)
-      %{id: id2} = Factory.insert(:post)
-      Factory.insert(:post)
-
-      assert [%Post{id: ^id1}, %Post{id: ^id2}] = Posts.get(limit: 2)
-    end
   end
 
   describe "by_customer/2" do
