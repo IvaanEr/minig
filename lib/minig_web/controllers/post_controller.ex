@@ -23,15 +23,13 @@ defmodule MinigWeb.PostController do
         {:error, :not_found}
 
       _ ->
-        {:error, :internal}
+        {:error, :internal_server_error}
     end
   end
 
   def index(conn, _params) do
     conn = fetch_query_params(conn)
-    IO.inspect(conn.query_params)
     pagination = build_pagination(conn)
-    IO.inspect(pagination)
 
     page =
       Posts.get()
@@ -51,7 +49,7 @@ defmodule MinigWeb.PostController do
         {:error, :not_found}
 
       _ ->
-        {:error, :internal}
+        {:error, :internal_server_error}
     end
   end
 
@@ -69,7 +67,7 @@ defmodule MinigWeb.PostController do
         {:error, :not_found}
 
       _ ->
-        {:error, :internal}
+        {:error, :internal_server_error}
     end
   end
 

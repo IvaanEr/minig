@@ -13,6 +13,7 @@ defmodule MinigWeb.PostView do
 
   def render("post.json", %{"post" => post}) do
     %{
+      id: post.id,
       image: post.image,
       description: post.description,
       image_type: post.image_type,
