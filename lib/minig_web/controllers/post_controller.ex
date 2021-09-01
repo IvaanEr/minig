@@ -3,6 +3,7 @@ defmodule MinigWeb.PostController do
 
   alias Minig.Customers
   alias Minig.Posts
+  alias MinigWeb.Utils
 
   action_fallback MinigWeb.FallbackController
 
@@ -29,7 +30,7 @@ defmodule MinigWeb.PostController do
 
   def index(conn, _params) do
     conn = fetch_query_params(conn)
-    pagination = build_pagination(conn)
+    pagination = Utils.build_pagination(conn)
 
     page =
       Posts.get()
@@ -55,7 +56,7 @@ defmodule MinigWeb.PostController do
 
   def customer_posts(conn, %{"customer_id" => customer_id}) do
     conn = fetch_query_params(conn)
-    pagination = build_pagination(conn)
+    pagination = Utils.build_pagination(conn)
 
     with customer_id <- String.to_integer(customer_id),
          true <- Customers.exists?(customer_id),
@@ -70,15 +71,4 @@ defmodule MinigWeb.PostController do
         {:error, :internal_server_error}
     end
   end
-
-  defp build_pagination(%{query_params: %{"page_number" => page_number, "page_size" => page_size}}),
-       do: %Scrivener.Config{
-         page_number: String.to_integer(page_number),
-         page_size: String.to_integer(page_size)
-       }
-
-  defp build_pagination(%{query_params: %{"page_number" => page_number}}),
-    do: %Scrivener.Config{page_number: String.to_integer(page_number), page_size: 10}
-
-  defp build_pagination(_conn), do: %Scrivener.Config{page_number: 1, page_size: 10}
 end

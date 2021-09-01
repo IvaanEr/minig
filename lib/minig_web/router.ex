@@ -13,5 +13,7 @@ defmodule MinigWeb.Router do
     end
 
     get "/post/:customer_id", PostController, :customer_posts
+
+    resources "/customer", CustomerController, only: [:create, :index, :show]
   end
 end
