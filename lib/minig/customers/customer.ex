@@ -18,5 +18,6 @@ defmodule Minig.Customer do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, @fields)
+    |> validate_required(@fields)
   end
 end

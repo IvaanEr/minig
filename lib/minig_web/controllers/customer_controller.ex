@@ -8,8 +8,6 @@ defmodule MinigWeb.CustomerController do
   alias MinigWeb.Utils
 
   def create(conn, params) do
-    IO.inspect(params)
-
     with {:ok, %Customer{} = c} <- Customers.create(params) do
       conn
       |> put_status(201)
