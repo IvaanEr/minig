@@ -7,6 +7,12 @@ The application consists of a feature limited "Instagram" clone, with the follow
   - Fetch posts with pagination
   - Like posts
 
+The application use Postgres database to store the Posts and Customer data.
+Postgres is an advanced open-source object-relational system which applies SQL language. Allows you to store large and sophisticated data safely.
+It helps developers to build the most complex applications, run administrative tasks and create integral environments.
+It has a great community online and a lot of clients to use and interact with
+the data.
+
 #### Prerequisites
   - Erlang/OTP:22 or greater
   - Elixir:1.10.3 or greater
